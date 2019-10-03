@@ -11,9 +11,11 @@ namespace cshw
 {
     class Program
     {
-        private static double GetDistance(double x1, double y1, double x2, double y2)
+        const int R = 6371000;
+        private static double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+            //return R * Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1));
+            return R * 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(Math.Abs(lat2 - lat1) * 0.5), 2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Pow(Math.Sin(Math.Abs(lon2 - lon1) * 0.5), 2)));
         }
 
         private static bool IsDuplicate(DataRow r1, DataRow r2)
