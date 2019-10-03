@@ -24,6 +24,7 @@ namespace cshw
                 (r2.Field<double>("weight") > r1.Field<double>("weight")) &&
                 (Math.Abs(r1.Field<int>("panoid") - r2.Field<int>("panoid")) > 8) &&
                 (Math.Abs(r1.Field<int>("azimuth") - r2.Field<int>("azimuth")) < 30) &&
+                (r1.Field<int>("type") == r2.Field<int>("type")) &&
                 (r1.Field<int>("id") != r2.Field<int>("id"));
         }
 
@@ -45,6 +46,7 @@ namespace cshw
                     dt.Columns.Add("weight", typeof(double));
                     dt.Columns.Add("panoid", typeof(int));
                     dt.Columns.Add("azimuth", typeof(int));
+                    dt.Columns.Add("type", typeof(int));
                     dt.Load(dr);
                     foreach (DataRow row1 in dt.Rows)
                     {
