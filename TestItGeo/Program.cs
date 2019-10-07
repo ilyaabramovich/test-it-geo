@@ -46,7 +46,7 @@ namespace cshw
             return (s1.Type == s2.Type) &&
                 (GetDistance(s1.Lat, s1.Lon, s2.Lat, s2.Lon) < 3) &&
                 (Math.Abs(s1.Panoid - s2.Panoid) > 8) &&
-                (Math.Abs(s1.Azimuth - s2.Azimuth) < 30);
+                ((Math.Abs(s1.Azimuth - s2.Azimuth) < 30) || (Math.Abs(s1.Azimuth - s2.Azimuth) > 329));
         }
 
         static void Main(string[] args)
@@ -70,8 +70,8 @@ namespace cshw
                     if (IsDuplicate(signs[j], signs[i]))
                     {
                         dynamic record = new ExpandoObject();
-                        record.id = signs[j].Id;
-                        record.parentid = signs[i].Id;
+                        record.id = signs[i].Id;
+                        record.parentid = signs[j].Id;
                         duplicates.Add(record);
                     }
                 }
