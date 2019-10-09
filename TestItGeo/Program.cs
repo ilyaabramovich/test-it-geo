@@ -36,9 +36,20 @@ namespace cshw
         }
 
         const int R = 6371000;
+
+        private static double ToRadians(double angle)
+        {
+            return (Math.PI / 180) * angle;
+        }
         private static double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            return R * 2 * Math.Asin(Math.Sqrt(Math.Pow(Math.Sin(Math.Abs(lat2 - lat1) * 0.5), 2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Pow(Math.Sin(Math.Abs(lon2 - lon1) * 0.5), 2)));
+            var lat = ToRadians(lat1 - lat2);
+            var lon = ToRadians(lon1 - lon2);
+            var h1 = Math.Sin(lat * 0.5) * Math.Sin(lat*0.5) +
+                       Math.Cos(ToRadians(lat1)) * Math.Cos(ToRadians(lat2)) *
+                       Math.Sin(lon * 0.5) * Math.Sin(lon * 0.5);
+            var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
+            return R * h2;
         }
 
         private static bool IsDuplicate(Sign s1, Sign s2)
